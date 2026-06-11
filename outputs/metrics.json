@@ -1,0 +1,77 @@
+{
+  "validation": {
+    "if_threshold": 0.037390543364482526,
+    "if_recall_known_faults": 0.9195979899497487,
+    "if_flag_rate": 0.11008756965768225,
+    "lgbm_auc": 0.6313538336860114,
+    "lgbm_ap": 0.3447902694426064
+  },
+  "test_event_level": {
+    "known_faults_recall": 0.9069767441860465,
+    "known_faults_apparent_precision": 0.041511442256519426,
+    "known_faults_flag_rate": 0.1150290786654423,
+    "known_faults_tp": 78.0,
+    "known_faults_fp": 1801.0,
+    "known_faults_fn": 8.0,
+    "ok_ref_recall": 0.08235294117647059,
+    "ok_ref_apparent_precision": 0.0037253858435337944,
+    "ok_ref_flag_rate": 0.1150290786654423,
+    "ok_ref_tp": 7.0,
+    "ok_ref_fp": 1872.0,
+    "ok_ref_fn": 78.0,
+    "physics_violations_recall": 1.0,
+    "physics_violations_apparent_precision": 0.2474720596061735,
+    "physics_violations_flag_rate": 0.1150290786654423,
+    "physics_violations_tp": 465.0,
+    "physics_violations_fp": 1414.0,
+    "physics_violations_fn": 0.0
+  },
+  "test_layer_contributions": {
+    "layer1_only": 19,
+    "layer2_only": 1414,
+    "both": 446,
+    "total_anomalies": 1879,
+    "total_events": 16335
+  },
+  "test_session_level": {
+    "auc": 0.592734375,
+    "ap": 0.29427518291336774,
+    "sessions_high_risk_gt_0_5": 0,
+    "total_sessions": 331
+  },
+  "if_feature_importance": {
+    "is_weekend": 0.011116498913373449,
+    "voltage_rolling_std_5": 0.00898873337103112,
+    "inter_event_gap_sec": 0.00819189546014375,
+    "event_position": 0.0069496262169189095,
+    "hour_of_day": 0.0063301319315745876,
+    "power_zscore_station": 0.005619126344582203,
+    "current_zscore_station": 0.004945524713416399,
+    "voltage_zscore_station": 0.004545389391452879,
+    "temperature_zscore_station": 0.004384162957156156,
+    "temp_delta": 0.004363833781576705,
+    "voltage_delta": 0.004316991854908539,
+    "power_ratio": 0.004290351780337022,
+    "power_delta": 0.004123401988781249,
+    "energy_ratio": 0.003522338040926172,
+    "error_code_binary": 0.0007964910644737417
+  },
+  "lgbm_feature_importance": {
+    "session_total_energy_kwh": 730.6874990463257,
+    "session_duration_sec": 699.8262996673584,
+    "session_std_power": 542.3404998779297,
+    "session_mean_power": 520.7371015548706,
+    "session_mean_temperature": 472.3641986846924,
+    "session_mean_voltage": 461.29039669036865,
+    "session_std_voltage": 371.072301864624,
+    "session_n_events": 366.26090717315674,
+    "session_std_temperature": 349.20019912719727,
+    "session_max_temperature": 324.2357006072998,
+    "session_max_voltage": 280.5219917297363,
+    "session_concurrent_violation_fraction": 252.50029945373535,
+    "session_start_hour": 251.87240028381348,
+    "session_min_voltage": 196.6998996734619,
+    "station_recent_fault_rate": 64.644700050354,
+    "session_is_weekend": 15.961899757385254
+  }
+}

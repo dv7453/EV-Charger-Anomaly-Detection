@@ -1,0 +1,17 @@
+feature,importance
+session_total_energy_kwh,730.6874990463257
+session_duration_sec,699.8262996673584
+session_std_power,542.3404998779297
+session_mean_power,520.7371015548706
+session_mean_temperature,472.3641986846924
+session_mean_voltage,461.29039669036865
+session_std_voltage,371.072301864624
+session_n_events,366.26090717315674
+session_std_temperature,349.20019912719727
+session_max_temperature,324.2357006072998
+session_max_voltage,280.5219917297363
+session_concurrent_violation_fraction,252.50029945373535
+session_start_hour,251.87240028381348
+session_min_voltage,196.6998996734619
+station_recent_fault_rate,64.644700050354
+session_is_weekend,15.961899757385254

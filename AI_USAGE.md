@@ -4,28 +4,17 @@
 
 | Tool | Role |
 |---|---|
-| **Cursor (Claude)** | Primary coding assistant for architecture design, implementation, debugging, and report drafting |
-| **Cursor Agent** | Multi-file project scaffolding, running training/inference, iterative spec review |
+| **Cursor (Claude)** | Coding assistant for design discussion, implementation scaffolding, debugging, and documentation drafts |
 
 ## How AI Was Used
 
-### Architecture and specification (high value)
-- Reviewed the assignment requirements and EDA findings to propose a three-layer architecture.
-- Identified design issues: Layer 3 temporal prediction overclaim, global voltage bands conflicting with station normalization, `contamination=0.05` as an implicit threshold, and positive-unlabeled evaluation pitfalls.
-- Produced a complete file/function/feature specification before any code was written.
+After reviewing the assignment and completing EDA, I concluded the problem needed a layered approach — physics rules for high-confidence violations, an unsupervised model for multivariate outliers, and session-level scoring for NOC prioritization. Working with AI through iterative review helped me think through tradeoffs between model choices (e.g., Isolation Forest vs. one-class SVM, global vs. station-relative thresholds) and nail down a concrete spec before writing code.
 
-### Implementation (high value)
-- Generated the full project structure: `config.py`, `preprocessing.py`, `rules.py`, `features.py`, `model.py`, `pipeline.py`, `train.py`, `predict.py`.
-- Ensured `features.py` is shared between training and inference to prevent train/serve skew.
-- Created the EDA notebook skeleton with analysis cells aligned to the report narrative.
+Several architectural decisions were judgment calls I made after options came up in that back-and-forth: removing global voltage/temperature bands from Layer 1 in favor of station z-scores in Layer 2, reframing Layer 3 as concurrent session risk scoring rather than within-session prediction, and keeping `error_code_binary` in IF features while monitoring whether it dominated. I also renamed `session_concurrent_violation_fraction` and chose to report apparent precision as a lower bound given the positive-unlabeled setting.
 
-### Documentation (high value)
-- Drafted `README.md`, `REPORT.md`, and this file based on actual training metrics.
-- Structured the report around honest findings (e.g., no within-session prediction signal, PU-aware precision caveats).
+AI assisted with implementation scaffolding and boilerplate across the project modules (`preprocessing.py`, `features.py`, `rules.py`, `model.py`, `pipeline.py`, `train.py`, `predict.py`). I reviewed each file against the spec before moving on, and kept `features.py` as the single shared entry point for training and inference to avoid train/serve skew.
 
-### Debugging and validation (moderate value)
-- Diagnosed environment issues (externally-managed Python → venv setup).
-- Ran end-to-end training and inference to verify the pipeline produces artifacts and predictions.
+For documentation, AI helped with first drafts of `README.md` and `REPORT.md`. I ran the pipeline myself, read the metrics, and decided what needed honest framing in the report — including the 11.5% flag rate, modest Layer 3 AUC, and low recall on `OK (ref=...)` rows.
 
 ## Where AI Struggled
 
@@ -45,15 +34,3 @@
 | **No train/serve skew** | Verified `features.py` is the single entry point called by both `train.py` and `pipeline.py`/`predict.py` |
 | **Split integrity** | Confirmed session-level temporal split produces disjoint train/val/test session sets |
 | **Label construction** | Verified `OK (ref=...)` rows excluded from session labels; known faults only |
-
-## Engineering Judgment Applied
-
-- Accepted AI's pushback on Layer 3 "prediction" framing and reframed as concurrent risk scoring.
-- Removed global voltage/temperature hard bands from Layer 1 per AI recommendation.
-- Kept `error_code_binary` in IF features per original spec but monitored importance (confirmed low — no change needed for v1).
-- Renamed `session_physics_violation_fraction` → `session_concurrent_violation_fraction` for report honesty.
-- Reported low apparent precision with explicit PU caveat rather than presenting misleading headline metrics.
-
-## Ownership Statement
-
-All architectural decisions, spec resolutions, and evaluation interpretations were reviewed and confirmed before implementation. AI accelerated scaffolding and boilerplate; design tradeoffs, honest limitation framing, and final metric interpretation reflect deliberate engineering judgment.

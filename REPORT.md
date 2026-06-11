@@ -32,6 +32,9 @@ Stations operate at materially different baselines (e.g., STATION_6 mean voltage
 ### Session labels are usable but not predictive within-session
 ~24% of sessions are fault-positive. Fault position within sessions is uniform, so session aggregates reflect **concurrent risk indicators**, not leading indicators of future faults in the same session.
 
+### Missing values
+Missing values were absent in the training data but handled robustly at inference — training-period medians per feature are stored in the model artifact and applied to any nulls in new data.
+
 ---
 
 ## 3. Modeling Approach
